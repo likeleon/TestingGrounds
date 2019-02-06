@@ -3,7 +3,8 @@
 #include "ChooseNextWaypoint.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "AIController.h"
-#include "PatrollingGuard.h"
+#include "PatrolRouteComponent.h"
+#include "GameFramework/Pawn.h"
 
 EBTNodeResult::Type UChooseNextWaypoint::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
@@ -13,13 +14,13 @@ EBTNodeResult::Type UChooseNextWaypoint::ExecuteTask(UBehaviorTreeComponent& Own
 		return EBTNodeResult::Failed;
 	}
 
-	APatrollingGuard* Guard = Cast<APatrollingGuard>(AIController->GetPawn());
-	if (Guard == nullptr)
+	UPatrolRouteComponent* PatrolRouteComp = AIController->GetPawn()->FindComponentByClass<UPatrolRouteComponent>();
+	if (PatrolRouteComp == nullptr)
 	{
 		return EBTNodeResult::Failed;
 	}
 
-	const TArray<AActor*>& PatrolPoints = Guard->PatrolPoints;
+	const TArray<AActor*>& PatrolPoints = PatrolRouteComp->PatrolPoints;
 	if (PatrolPoints.Num() == 0)
 	{
 		return EBTNodeResult::Failed;
