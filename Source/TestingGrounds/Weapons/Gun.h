@@ -38,9 +38,9 @@ public:
 public:	
 	AGun();
 
-protected:
-	virtual void BeginPlay() override;
-
 	/** Fires a projectile. */
 	void OnFire();
+
+protected:
+	virtual void BeginPlay() override;
 };
