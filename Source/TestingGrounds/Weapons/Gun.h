@@ -38,6 +38,7 @@ public:
 	AGun();
 
 	/** Fires a projectile. */
+	UFUNCTION(BlueprintCallable, Category=Combat)
 	void OnFire();
 
 protected:
